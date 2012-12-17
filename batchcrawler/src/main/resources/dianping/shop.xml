@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="pagekit_shop" >
+
+    <typeAlias alias="TA_PagekitShop" type="org.fabrelab.pagekit.dianping.model.Shop" />
+  
+    <resultMap id="RM_PagekitShop" class="TA_PagekitShop" >
+      <result column="id" property="id" jdbcType="LONG" />
+      <result column="url" property="title" jdbcType="VARCHAR" />
+      <result column="title" property="title" jdbcType="VARCHAR" />
+      <result column="address" property="address" jdbcType="VARCHAR" />
+      <result column="latitude" property="latitude" jdbcType="DOUBLE" />
+      <result column="longitude" property="longitude" jdbcType="DOUBLE" />
+    </resultMap>
+  
+	<select id="listShop" resultMap="RM_PagekitShop" >   
+	    select * from pagekit_shop    
+	</select>  
+  
+	<update id="updateShop">
+		<![CDATA[
+			update pagekit_shop t
+			set 
+				t.title = #title#,
+				t.address = #address#
+			where t.id=#id#
+		]]>
+	</update>
+	
+	<select id="getShopById" resultMap="RM_PagekitShop">
+		<![CDATA[
+			select 
+				id,
+				url, 
+				title,  
+				address,
+				latitude, 
+				longitude
+			from pagekit_shop
+			where ID = #id# 
+		]]>
+	</select>
+	
+	<insert id="createShop" parameterClass="TA_PagekitShop">
+		<![CDATA[
+			insert into pagekit_shop (
+			    title,  
+			    url, 
+				address, 
+				latitude,
+				longitude)
+			values
+				(#title#,
+			 	 #url#,	
+				 #address#,
+				 #latitude#,
+				 #longitude#			 
+				)
+		]]>
+		<selectKey resultClass="java.lang.Long" keyProperty="id">
+			<![CDATA[
+				SELECT LAST_INSERT_ID() AS id
+			]]>
+		</selectKey>
+	</insert>
+	
+	<delete id="deleteShop">
+		<![CDATA[
+		delete from pagekit_shop 
+		 where id = #id#
+		]]>
+	</delete>
+	
+ </sqlMap>

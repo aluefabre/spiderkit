@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>  
+
+	<bean id="taskExecutor" class="org.fabrelab.pagekit.common.TaskExecutor" autowire="byName">
+	
+	</bean>
+	
+	<bean id="pageDAO" class="org.fabrelab.pagekit.common.dao.PageDAODatabaseImpl" autowire="byName">
+	
+	</bean>
+	
+	<bean id="taskPool" class="org.fabrelab.pagekit.ali56.Ali56TaskPool" autowire="byName">
+	
+	</bean>
+	
+	<bean id="entityDAO" class="org.fabrelab.pagekit.ali56.dao.Ali56DAOImpl" autowire="byName">
+	
+	</bean>
+	
+	
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation">
+			<value>classpath:sqlmap.xml</value>
+		</property>
+	</bean>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/pagekit?useUnicode=true&amp;characterEncoding=utf-8" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+		
+		<property name="initialSize" value="1" />
+		<property name="maxActive" value="10" />
+		<property name="minIdle" value="1" />	
+	</bean>
+	
+</beans>

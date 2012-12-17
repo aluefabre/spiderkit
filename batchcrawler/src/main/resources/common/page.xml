@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="pagekit_page" >
+
+    <typeAlias alias="TA_PagekitPage" type="org.fabrelab.pagekit.common.model.Page" />
+  
+    <resultMap id="RM_PagekitPage" class="TA_PagekitPage" >
+      <result column="id" property="id" jdbcType="LONG" />
+      <result column="url" property="url" jdbcType="VARCHAR" />
+      <result column="status" property="status" jdbcType="VARCHAR" />
+      <result column="priority" property="priority" jdbcType="INTEGER" />
+    </resultMap>
+  
+	<select id="listPageByStatus" resultMap="RM_PagekitPage" >   
+	    select * from pagekit_page t
+	    where t.status=#status#    
+	    limit 0, 10
+	</select>  
+  	
+  	<select id="listPageByUrl" resultMap="RM_PagekitPage" >   
+	    select * from pagekit_page t
+	    where t.url=#url#    
+	    limit 0, 10
+	</select>  
+	
+  	<select id="listPageByPriority" resultMap="RM_PagekitPage" >   
+	    select * from pagekit_page t
+	    where t.priority=#priority# and t.status=#status#  
+    	limit 0, 10	      
+	</select>  
+	
+	<update id="updatePage">
+		<![CDATA[
+			update pagekit_page t
+			set 
+				t.status = #status#
+			where t.id=#id#
+		]]>
+	</update>
+	
+	<select id="getPageById" resultMap="RM_PagekitPage">
+		<![CDATA[
+			select 
+				id,
+				url,
+				status,
+				priority
+			from pagekit_page
+			where ID = #id# 
+		]]>
+	</select>
+	
+	<insert id="createPage" parameterClass="TA_PagekitPage">
+		<![CDATA[
+			insert into pagekit_page (
+				url,
+			    status,
+			    priority)
+			values
+				(
+				 #url#,
+				 #status#,
+				 #priority#			 
+				)
+		]]>
+		<selectKey resultClass="java.lang.Long" keyProperty="id">
+			<![CDATA[
+				SELECT LAST_INSERT_ID() AS id
+			]]>
+		</selectKey>
+	</insert>
+	
+	<delete id="deletePage">
+		<![CDATA[
+		delete from pagekit_page 
+		 where id = #id#
+		]]>
+	</delete>
+	
+ </sqlMap>

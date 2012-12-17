@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>  
+
+	<bean id="taskExecutor" class="org.fabrelab.pagekit.common.TaskExecutor" autowire="byName">
+	
+	</bean>
+	
+	<bean id="pageDAO" class="org.fabrelab.pagekit.common.dao.PageDAOMemoryImpl" autowire="byName">
+	
+	</bean>
+	
+	<bean id="taskPool" class="org.fabrelab.pagekit.baiduzhidao.BaiduZhidaoTaskPool" autowire="byName">
+	
+	</bean>
+	
+	<bean id="entityDAO" class="org.fabrelab.pagekit.baiduzhidao.dao.BaiduZhidaoDAOImpl" autowire="byName">
+	
+	</bean>
+	
+	
+</beans>
